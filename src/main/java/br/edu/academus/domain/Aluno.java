@@ -1,33 +1,22 @@
 package br.edu.academus.domain;
 
-public class Aluno {
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 
-    private Long id;
-    private String nome;
+import java.util.List;
 
-    // Construtor vazio
-    public Aluno() {}
+@Entity
+public class Aluno extends Usuario {
 
-    // Construtor completo
-    public Aluno(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    @ManyToMany(mappedBy = "alunos")
+    private List<Curso> cursos;
+
+    // Getters e Setters
+    public List<Curso> getCursos() {
+        return cursos;
     }
 
-    // Getters e setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
     }
 }

@@ -11,23 +11,23 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
-@Path("/alunos")
+@Path("/professores")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class AlunoResource {
+public class ProfessorResource {
 
     @Inject
     UsuarioRepository repository;
 
     @GET
     public List<Usuario> listar() {
-        return repository.listarPorPerfil(Perfil.ALUNO);
+        return repository.listarPorPerfil(Perfil.PROFESSOR);
     }
 
     @GET
     @Path("/{id}")
     public Response buscarPorId(@PathParam("id") Long id) {
-        Usuario usuario = repository.buscarPorIdEPerfil(id, Perfil.ALUNO);
+        Usuario usuario = repository.buscarPorIdEPerfil(id, Perfil.PROFESSOR);
         if (usuario == null) return Response.status(Response.Status.NOT_FOUND).build();
         return Response.ok(usuario).build();
     }
@@ -35,7 +35,7 @@ public class AlunoResource {
     @POST
     @Transactional
     public Response criar(Usuario usuario) {
-        usuario.setPerfil(Perfil.ALUNO);
+        usuario.setPerfil(Perfil.PROFESSOR);
         repository.persist(usuario);
         return Response.status(Response.Status.CREATED).entity(usuario).build();
     }
@@ -44,7 +44,7 @@ public class AlunoResource {
     @Path("/{id}")
     @Transactional
     public Response deletar(@PathParam("id") Long id) {
-        Usuario usuario = repository.buscarPorIdEPerfil(id, Perfil.ALUNO);
+        Usuario usuario = repository.buscarPorIdEPerfil(id, Perfil.PROFESSOR);
         if (usuario == null) return Response.status(Response.Status.NOT_FOUND).build();
         repository.delete(usuario);
         return Response.noContent().build();
